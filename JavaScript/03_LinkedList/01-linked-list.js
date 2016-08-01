@@ -39,7 +39,7 @@ function LinkedList(){
 
 	this.insert = function(position, element){
 
-		if(position < 0 || position >= length){
+		if(position < 0 || position > length){
 			return false;
 
 		}else{
@@ -75,7 +75,36 @@ function LinkedList(){
 			return true;
 		}
 	};
-	this.removeAt = function(position){};
+
+	
+	this.removeAt = function(position){
+
+		if(position < 0 || position > length){
+			return null;
+		}else{
+
+			var current = head;
+			var previous;
+			int index = 0;
+
+			if(position === 0){
+				head = current.next;
+			}else{
+
+				while(index ++ < position){
+					previous = current;
+					current = current.next;
+				}
+
+				/*this removes the element after the previous and before current.next
+				which means the current element*/
+				previous.next = current.next;
+			}
+			length --;
+			return  current.element;
+		}
+
+	};
 	this.remove = function(element){};
 	this.indexOf = function(element){};
 	this.isEmpty = function(){};
