@@ -36,8 +36,45 @@ function LinkedList(){
 		length ++;
 	};
 
-	
-	this.insert = function(position, element){};
+
+	this.insert = function(position, element){
+
+		if(position < 0 || position >= length){
+			return false;
+
+		}else{
+			var node = new Node(element);
+			var current = head;
+			var previous;
+			index = 0;
+
+			/*if position is 0, make the first one to the second (node.next),
+			and make the node to be the head.*/
+			if(position === 0){
+
+				node.next = current;
+				head = node;
+
+			}else{
+
+				current = head;
+
+				while(index ++ < position){
+					previous = current;
+					current = current.next;
+				}
+
+				/*while (index == position), let node = privious
+				which means the current node*/
+				node.next = current;
+				previous.next = node;
+			}
+
+			length ++;
+
+			return true;
+		}
+	};
 	this.removeAt = function(position){};
 	this.remove = function(element){};
 	this.indexOf = function(element){};
