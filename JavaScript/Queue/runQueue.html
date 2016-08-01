@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>Run Queue</title>
+	<script type="text/javascript" src="queue.js"></script>
+</head>
+
+<body>
+
+	<!-- test queue.js -->
+	<script type="text/javascript">
+		var queue = new Queue();
+		console.log(queue.isEmpty());
+		queue.enqueue(5);
+		console.log(queue.isEmpty());
+
+		queue.enqueue(4);
+		queue.dequeue();
+		queue.print();
+	</script>
+
+	<!-- test for PriorityQueue.js -->
+	<script type="text/javascript" src="priorityQueue.js"></script>
+	<script type="text/javascript">
+	console.log("2222");
+		var priorityQueue = new PriorityQueue();
+		console.log(priorityQueue.isEmpty());
+		priorityQueue.enqueue("jiajia", 1);
+		console.log(priorityQueue.isEmpty());
+		priorityQueue.dequeue();
+		console.log(priorityQueue.isEmpty());
+		priorityQueue.enqueue("moss" ,2);
+		priorityQueue.enqueue("jiajia", 1);
+		priorityQueue.enqueue("huahua",1);
+		priorityQueue.print();
+	</script>
+
+	<!--test for hotPotato.js-->
+	<script src="hotPotato.js"></script>
+	<script>
+	var names = [11, 22,33,44,55];
+	var winner = hotPotato(names,7);
+	console.log("winner is: " + winner);
+	</script>
+</body>
+
+</html>
