@@ -108,7 +108,82 @@ function DoublyLinkedList(){
 			return null;
 		};
 
+		this.remove = function(element){
+			var index = this.indexOf(element);
+			return this.removeAt(index);
+		};
 
+		this.indexOf = function(element){
+			var current = head ;
+			var index = -1;
+
+			if(element == current.element){//check the first node
+				return 0;
+			}
+			index ++;
+
+			while(current.next){ //iterating the following nodes
+				if(element == current.element){
+					return index;
+				}
+
+				current = current.next; //exchange the position
+				index ++;
+			}
+
+			if(element == current.element){ //check the last node
+				return index;
+			}
+
+			return -1; // didn't find the element, return -1
+		};
+
+		this.isEmpty = function(){
+			return length === 0;
+		}
+
+		this.size = function(){
+			return length;
+		}
+
+		this.toString = function(){
+			var current = head;
+			var s = current?current.element:'';
+
+			while(current && current.next){
+				current = current.next;
+				s += ', '+ current.element;
+			}
+			return s;
+		};
+
+		this.inversetoString = function(){
+			var current = tail;
+			var s = current? current.element:'';
+
+			while(current && current.prev){
+				current = current.prev;
+				s += ', '+ current.element;
+			}
+
+			return s;
+		};
+
+		this.print = function(){
+			console.log(this.toString());
+		};
+
+		this.printinverse = function(){
+			console.log(this.inversetoString());
+		};
+
+		this.getHead = function(){
+			return head;
+		};
+
+		this.getTail = function(){
+			return tail;
+		};
 
 
 	}
