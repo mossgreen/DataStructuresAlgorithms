@@ -53,9 +53,44 @@ function DoublyLinkedList(){
 		}else{
 			return false;
 		}
-
-
 	};
+
+	this.removeAt = function(position){}
+
+		if(position > -1 && position <= length){
+			var current = head;
+			var previous;
+			var index = 0;
+
+			if(position === 0){
+				head = current.next;
+
+				/* if this linklist only has one node, after deleting it won't have tail
+				if it has more than one node, after deleting it won't have prev*/
+				if(length ===1){
+					tail = null;
+				}else{
+					head.prev = null;
+				}
+			}else if(position === length -1){ //deleting the last node
+				current = tail;
+				tail = current.prev;
+				tail.next = null;
+			}else{ // iterating the list, find the right position
+				while(index ++ < position ){
+					previous = current;
+					current = current.next;
+				}
+
+				previous.next = current.next;
+				current.next.prev = previous;
+			}
+
+			length --;
+			return current.element;
+		}else{
+			return null;
+		};
 
 
 }
