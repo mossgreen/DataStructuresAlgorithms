@@ -76,7 +76,7 @@ function LinkedList(){
 		}
 	};
 
-	
+
 	this.removeAt = function(position){
 
 		if(position < 0 || position > length){
@@ -105,10 +105,55 @@ function LinkedList(){
 		}
 
 	};
-	this.remove = function(element){};
-	this.indexOf = function(element){};
-	this.isEmpty = function(){};
-	this.size = function(){};
-	this.toString = function(){};
-	this.print = function(){};
+	
+	this.remove = function(element){
+		var index = indexOf(element);
+		return removeAt(inde);
+	};
+
+	this.indexOf = function(element){
+
+		var current = head;
+		var index = -1;
+
+		while (current){
+			if(element == current.element){
+				return index;
+			}
+
+			index++;
+			current = current.next;
+		}
+
+		return -1;
+	};
+
+	this.isEmpty = function(){
+
+		return length ===0;
+	};
+
+	this.size = function(){
+		return length;
+
+	};
+
+//head is private attribute, which means it cannot be modified outside the class
+this.getHead = function(){
+	return head;
+};
+
+
+this.toString = function(){
+
+	var current = head;
+	var string = '';
+
+	while(current){
+		string = current.element;
+		current = current.next;
+	}
+	return string;
+};
+this.print = function(){};
 }
