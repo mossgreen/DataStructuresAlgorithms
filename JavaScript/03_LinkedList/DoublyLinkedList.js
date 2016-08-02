@@ -20,10 +20,10 @@ function DoublyLinkedList(){
 			tail = node;
 		}else{ //attach to the tail node
 			tail.next = node;//pointing the tail to the node
-			node.pre = tail;// pointing the node to tail
+			node.prev = tail;// pointing the node to tail
 			tail = node; //exchange the position of node and tail
 		}
-		length ++;
+		length ++;	
 	};
 
 	/*adding a new node to a doublylinkedlist is quite familiar with linkedlist
@@ -40,7 +40,7 @@ function DoublyLinkedList(){
 
 				if(!head){ //if head is not exists
 					head = node;
-					tail = tail;
+					tail = node;
 				}else{	//if head exists
 					node.next = current;
 					current.prev = node;
@@ -73,7 +73,7 @@ function DoublyLinkedList(){
 
 	this.removeAt = function(position){
 
-		if(position > -1 && position <= length){
+		if(position > -1 && position < length){
 			var current = head;
 			var previous;
 			var index = 0;
@@ -88,12 +88,16 @@ function DoublyLinkedList(){
 					}else{
 						head.prev = null;
 					}
-			}else if(position === length -1){ //deleting the last node
+			}else if(position === length - 1){ //deleting the last node
 				current = tail;
+				
 				tail = current.prev;
+
 				tail.next = null;
+
 			}else{ // iterating the list, find the right position
-				while(index ++ < position ){
+
+				while(index++ < position ){
 					previous = current;
 					current = current.next;
 				}
