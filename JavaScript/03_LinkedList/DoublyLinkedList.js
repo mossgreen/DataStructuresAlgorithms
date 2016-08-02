@@ -12,7 +12,7 @@ function DoublyLinkedList(){
 
 	this.append = function(element){
 
-		var node = new Node(element),
+		var node = new Node(element);
 		var current;
 
 		if(head === null){ //means this is the first node in list
@@ -28,7 +28,7 @@ function DoublyLinkedList(){
 
 	/*adding a new node to a doublylinkedlist is quite familiar with linkedlist
 	difference is that we have to control two reverences which are next and prev */
-	this.insert(position, element){
+	this.insert = function(position, element){
 
 		if(position >= 0 && position <= lenth){
 			var node = new Node(element);
@@ -71,15 +71,15 @@ function DoublyLinkedList(){
 		}
 	};
 
-	this.removeAt = function(position){}
+	this.removeAt = function(position){
 
-	if(position > -1 && position <= length){
-		var current = head;
-		var previous;
-		var index = 0;
+		if(position > -1 && position <= length){
+			var current = head;
+			var previous;
+			var index = 0;
 
-		if(position === 0){
-			head = current.next;
+			if(position === 0){
+				head = current.next;
 
 				/* if this linklist only has one node, after deleting it won't have tail
 				if it has more than one node, after deleting it won't have prev*/
@@ -106,16 +106,18 @@ function DoublyLinkedList(){
 			return current.element;
 		}else{
 			return null;
-		};
+		}
+	};
+	
 
-		this.remove = function(element){
-			var index = this.indexOf(element);
-			return this.removeAt(index);
-		};
+	this.remove = function(element){
+		var index = this.indexOf(element);
+		return this.removeAt(index);
+	};
 
-		this.indexOf = function(element){
-			var current = head ;
-			var index = -1;
+	this.indexOf = function(element){
+		var current = head ;
+		var index = -1;
 
 			if(element == current.element){//check the first node
 				return 0;
