@@ -85,7 +85,7 @@ function LinkedList(){
 
 			var current = head;
 			var previous;
-			int index = 0;
+			var index = 0;
 
 			if(position === 0){
 				head = current.next;
