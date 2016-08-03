@@ -76,11 +76,11 @@ function CircularLinkedList(){
 		}
 	};
 
-this.removeAt(position){
-	if(position > -1 && position < length){
-		var current = head;
-		var previous;
-		var index = 0;
+	this.removeAt(position){
+		if(position > -1 && position < length){
+			var current = head;
+			var previous;
+			var index = 0;
 
 		//removing first item
 		if(position === 0){
@@ -105,13 +105,46 @@ this.removeAt(position){
 		length --;
 
 		return current.element;
-	}else{
-		return null;
+		}else{
+			return null;
+		}
+	};
+
+
+this.remove = function(element){
+	var index = this.indexOf(element);
+	return this.removeAt(index);
+}
+
+this.indexOf = function(element){
+	var current = head;
+	var index = -1;
+
+	//check first item
+	if(element == current.element){
+		return 0;
 	}
-};
 
+	index ++;
 
+	//check in the middle of the list
+	while(current.next !== head) { //if this node is the last one
+		if(element == current.element){
+			return index;
+		}
+		//if doesn't find the element
+		//then go on iterating
+		current = current.next;
+		index ++;
+	}
 
+	//check the last item
+	if(element == current.element){
+		return index;
+	}
+
+	return -1;// cannot find 
+}
 
 
 
