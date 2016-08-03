@@ -76,49 +76,49 @@ function CircularLinkedList(){
 		}
 	};
 
-	this.removeAt(position){
+	this.removeAt = function(position){
 		if(position > -1 && position < length){
 			var current = head;
 			var previous;
 			var index = 0;
 
-		//removing first item
-		if(position === 0){
-			//needs to update last element first
-			while(current.next !== head){ 
-				current = current.next;
-			}
+			//removing first item
+			if(position === 0){
+				//needs to update last element first
+				while(current.next !== head){ 
+					current = current.next;
+				}
 
-			head = head.next;
-			current.next = head;
+				head = head.next;
+				current.next = head;
+			}else{
+				//no need to update last element for circular list
+				while(index ++ < position){
+					previous = current;
+					current = current.next;
+				}
+
+				//link previous with current's next
+				//skip it to remove
+				previous.next = current.next;
+			}
+			length --;
+
+			return current.element;
 		}else{
-			//no need to update last element for circular list
-			while(index ++ < position){
-				previous = current;
-				current = current.next;
-			}
-
-			//link previous with current's next
-			//skip it to remove
-			previous.next = current.next;
+			return null;
 		}
-		length --;
+	};
 
-		return current.element;
-	}else{
-		return null;
+
+	this.remove = function(element){
+		var index = this.indexOf(element);
+		return this.removeAt(index);
 	}
-};
 
-
-this.remove = function(element){
-	var index = this.indexOf(element);
-	return this.removeAt(index);
-}
-
-this.indexOf = function(element){
-	var current = head;
-	var index = -1;
+	this.indexOf = function(element){
+		var current = head;
+		var index = -1;
 
 		//check first item
 		if(element == current.element){
