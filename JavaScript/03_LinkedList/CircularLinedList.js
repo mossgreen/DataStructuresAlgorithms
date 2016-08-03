@@ -105,10 +105,10 @@ function CircularLinkedList(){
 		length --;
 
 		return current.element;
-		}else{
-			return null;
-		}
-	};
+	}else{
+		return null;
+	}
+};
 
 
 this.remove = function(element){
@@ -120,46 +120,58 @@ this.indexOf = function(element){
 	var current = head;
 	var index = -1;
 
-	//check first item
-	if(element == current.element){
-		return 0;
-	}
+		//check first item
+		if(element == current.element){
+			return 0;
+		}
 
-	index ++;
+		index ++;
 
-	//check in the middle of the list
-	while(current.next !== head) { //if this node is the last one
+		//check in the middle of the list
+		while(current.next !== head) { //if this node is the last one
+			if(element == current.element){
+				return index;
+			}
+			//if doesn't find the element
+			//then go on iterating
+			current = current.next;
+			index ++;
+		}
+
+		//check the last item
 		if(element == current.element){
 			return index;
 		}
-		//if doesn't find the element
-		//then go on iterating
-		current = current.next;
-		index ++;
-	}
 
-	//check the last item
-	if(element == current.element){
-		return index;
-	}
-
-	return -1;// cannot find 
-}
+		return -1;// cannot find 
+	};
 
 
+	this.isEmpty = function(){
+		return length === 0;
+	};
 
+	this.size = function(){
+		return length;
+	};
 
+	this.getHead = function(){
+		return head;
+	};
 
+	this.toString = function(){
+		var current = head;
+		var s = current.element;
 
+		while(current.next !== head){
+			current = current.next;
+			s += ', '+ current.element;
+		}
+		return s.toString();
+	};
 
-
-
-
-
-
-
-
-
-
+	this.print = function(){
+		console.log(this.toString());
+	};
 
 }
