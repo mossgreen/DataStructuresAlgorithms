@@ -33,6 +33,51 @@ function CircularLinkedList(){
 		length ++; //update size of list
 	};
 
+	this.insert = function(position, element){
+
+		//check for out-of-bounds values
+		if(position >= 0 && position <= length){
+
+			var node = new Node(element);
+			var current = head;
+			var previous ;
+			var index = 0;
+
+			if(position === 0){
+				//current node will follow the new node
+				node.next = current;
+
+				//update last element since it has to point to the head
+				while(current.next !== head){
+					current = current.next;
+				}
+
+				//this element -> .next === head
+				head = node;
+				current.next = head;
+			}else{
+				//iterating previous items
+				while(index++ < position){
+					previous = current;
+					current = current.next;
+				}
+				node.next = current;
+				previous.next = node;
+
+				if(node.next === null){//update in case last item
+					node.next = head;
+				}
+			}
+
+			length ++;
+			return true;
+		}else{
+			return false;
+		}
+	};
+
+
+
 
 
 
