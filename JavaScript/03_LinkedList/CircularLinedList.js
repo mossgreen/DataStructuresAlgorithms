@@ -76,7 +76,39 @@ function CircularLinkedList(){
 		}
 	};
 
+this.removeAt(position){
+	if(position > -1 && position < length){
+		var current = head;
+		var previous;
+		var index = 0;
 
+		//removing first item
+		if(position === 0){
+			//needs to update last element first
+			while(current.next !== head){ 
+				current = current.next;
+			}
+
+			head = head.next;
+			current.next = head;
+		}else{
+			//no need to update last element for circular list
+			while(index ++ < position){
+				previous = current;
+				current = current.next;
+			}
+
+			//link previous with current's next
+			//skip it to remove
+			previous.next = current.next;
+		}
+		length --;
+
+		return current.element;
+	}else{
+		return null;
+	}
+};
 
 
 
