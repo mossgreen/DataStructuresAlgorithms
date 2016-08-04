@@ -1,31 +1,61 @@
 function(){
 	var items = {};
 
-	this.add = function(){};
+	this.add = function(value){
+		if(!this.has(value)){
+			items[value] = value;
+			return true;
+		}
+		return false;
+	};
 
-	this.remove = function(){};
+	this.remove = function(value){
+		if(this.has(value)){
+			delete items[value];
+			return true;
+		}
+		return false;
+	};
 
-	this.has = function(){};
+	this.has = function(value){
+		return items.hasOwnProperty(value);
+		//return value in items
+	};
 
-	this.clear = function(){};
+	this.clear = function(){
 
-	this.size = function(){};
+		items = {};
+	};
 
-	this.sizeLegacy = function(){};
+	this.size = function(){
+		return Object.keys(items).length;
+	};
 
-	this.values = function(){};
+	this.sizeLegacy = function(){
+		var count = 0;
+		for(var prop in items){
+			++count;
+		}
+		return count;
+	};
 
-	this.valuesLegacy = function(){};
+	this.values = function(){
+		return Object.keys(items);
+	};
 
-	this.getItems = function(){};
+	this.valuesLegacy = function(){
 
-	this.union = function(){};
+		var keys =[];
+		for(var key in items){
+			keys.push(key);
+		}
 
-	this.intersection = function(){};
+		return keys;
+	};
 
-	this.difference = function(){};
-
-	this.subset = function(){};	
+	this.getItems = function(){
+		return items;
+	};
 
 
 
