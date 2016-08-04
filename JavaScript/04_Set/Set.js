@@ -27,10 +27,12 @@ function Set(){
 		items = {};
 	};
 
+	/*modern browers function, IE9+*/
 	this.size = function(){
 		return Object.keys(items).length;
 	};
 
+	/*cross brower compatibility*/
 	this.sizeLegacy = function(){
 		var count = 0;
 		for(var prop in items){
@@ -39,10 +41,12 @@ function Set(){
 		return count;
 	};
 
+	/*modern browers function, IE9+*/
 	this.values = function(){
 		return Object.keys(items);
 	};
 
+	/*cross brower compatibility*/
 	this.valuesLegacy = function(){
 
 		var keys =[];
