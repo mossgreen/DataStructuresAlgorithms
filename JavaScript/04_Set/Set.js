@@ -1,4 +1,4 @@
-function(){
+function Set(){
 	var items = {};
 
 	this.add = function(value){
@@ -61,7 +61,7 @@ function(){
 		var unionSet = new Set();
 
 		var values = this.values();
-		var(var i=0; i<values.length; i++){
+		for(var i=0; i<values.length; i++){
 			unionSet.add(values[i]);
 		}
 
