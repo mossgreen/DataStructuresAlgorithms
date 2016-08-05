@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>using dictionary</title>
+</head>
+<body>
+	<script type="text/javascript" src="dictionary.js"></script>
+	<script type="text/javascript">
+		var dictionary = new Dictionary();
+
+		dictionary.set('ganalf', "gandalf@gmail.com");
+		dictionary.set('jone', "hone@gmail.com");
+		dictionary.set('moss', "moss@gmail.com");
+
+		console.log(dictionary.has('ganalf'));
+		console.log(dictionary.size());
+		
+		console.log(dictionary.keys());
+		console.log(dictionary.values());
+		console.log(dictionary.get("moses"));
+		console.log(dictionary.get("moss"));
+
+		dictionary.remove("moss");
+
+		console.log(dictionary.keys());
+		console.log(dictionary.values());
+
+		console.log(dictionary.getItems());
+	</script>
+
+</body>
+</html>

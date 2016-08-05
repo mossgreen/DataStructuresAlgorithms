@@ -34,7 +34,7 @@ function Dictionary(){
 		return Object.keys(items);
 	};
 
-	this.value = function(){
+	this.values = function(){
 		var values = [];
 		for(var k in items){
 			if(this.has(k)){
