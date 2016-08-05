@@ -4,7 +4,7 @@ function HashTable(){
 	var lostlostHashCode = function(key){
 		var hash = 0;
 		for(var i=0; i<key.length; i++){
-			hash += key.charcodeAt(i);
+			hash += key.charCodeAt(i);
 		}
 		return hash%37;
 	};
@@ -12,14 +12,14 @@ function HashTable(){
 	var djb2HashCode = function(key){
 		var hash = 5381;
 		for(var i=0; i<key.length; i++){
-			hash = hash*33 + key.charcodeAt(i);
+			hash = hash*33 + key.charCodeAt(i);
 		}
 
 		return hash % 1013;
 	};
 
-	var hashCode = function(){
-		return lostlostHashCode(key)
+	var hashCode = function(key){
+		return djb2HashCode(key)
 	};
 
 	this.put = function(key, value){
