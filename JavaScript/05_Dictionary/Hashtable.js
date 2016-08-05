@@ -1,17 +1,46 @@
 function HashTable(){
 	var table = [];
 
-	var lostlostHashCode = function(){};
+	var lostlostHashCode = function(key){
+		var hash = 0;
+		for(var i=0; i<key.length; i++){
+			hash += key.charcodeAt(i);
+		}
+		return hash%37;
+	};
 
-	var sjb2HashCode = function(){};
+	var djb2HashCode = function(key){
+		var hash = 5381;
+		for(var i=0; i<key.length; i++){
+			hash = hash*33 + key.charcodeAt(i);
+		}
 
-	var hashcode = function(){};
+		return hash % 1013;
+	};
 
-	this.put = function(key){};
+	var hashCode = function(){
+		return lostlostHashCode(key)
+	};
 
-	this.get = function(key){};
+	this.put = function(key, value){
+		var position = hashCode(key);
+		console.log(position + ' - ' + key);
+		table[position] = value;
+	};
 
-	this.remove = function(key){};
+	this.get = function(key){
+		return table[hashCode(key)];
+	};
 
-	this.print = function(){};
+	this.remove = function(key){
+		table[hashCode(key)] = undefined;
+	};
+
+	this.print = function(){
+		for(var i=0; i<table.length; i++){
+			if(table[i] !== undefined){
+				console.log(i+": "+table[i]);
+			}
+		}
+	};
 }
