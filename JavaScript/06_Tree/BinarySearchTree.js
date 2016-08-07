@@ -68,9 +68,17 @@ function BinarySearchTree(){
 		}
 	};
 
-	this.preorderTraverse = function(callback){};
+	this.preorderTraverse = function(callback){
+		preorderTraverseNode(root, callback);
+	};
 
-	var preorderTraverseNode = function(node, callback){};
+	var preorderTraverseNode = function(node, callback){
+		if(node !== null){
+			callback(node.key);
+			preorderTraverseNode(node.left, callback);
+			preorderTraverseNode(node.right, callback);
+		}
+	};
 
 	this.postOrderTraverse = function(callback){};
 
