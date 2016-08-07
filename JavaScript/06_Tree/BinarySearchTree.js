@@ -34,11 +34,27 @@ function BinarySearchTree(){
 		}
 	};
 
-	this.getRoot = function(){};
+	this.getRoot = function(){
+		return root;
+	};
 
-	this.search = function(key){};
+	this.search = function(key){
+		return searchNode(root,key);
+	};
 
-	var searchNode = function(node, key){};
+	var searchNode = function(node, key){
+		if(node === null){
+			return false;
+		}
+		if(key < node.key){
+			return searchNode(node.left, key);
+		}else if(key > node.key){
+			return searchNode(node.right, key);
+		}else{
+			//element is equal to node.item
+			return true;
+		}
+	};
 
 	this.inOrderTraverse = function(callback){};
 
