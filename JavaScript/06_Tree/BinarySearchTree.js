@@ -68,15 +68,15 @@ function BinarySearchTree(){
 		}
 	};
 
-	this.preorderTraverse = function(callback){
-		preorderTraverseNode(root, callback);
+	this.preOrderTraverse = function(callback){
+		preOrderTraverseNode(root, callback);
 	};
 
-	var preorderTraverseNode = function(node, callback){
+	var preOrderTraverseNode = function(node, callback){
 		if(node !== null){
 			callback(node.key);
-			preorderTraverseNode(node.left, callback);
-			preorderTraverseNode(node.right, callback);
+			preOrderTraverseNode(node.left, callback);
+			preOrderTraverseNode(node.right, callback);
 		}
 	};
 
