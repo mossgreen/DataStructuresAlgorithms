@@ -56,9 +56,17 @@ function BinarySearchTree(){
 		}
 	};
 
-	this.inOrderTraverse = function(callback){};
+	this.inOrderTraverse = function(callback){
+		inOrderTraverseNode(root, callback);
+	};
 
-	var inOrderTraverseNode = function(node, callback){};
+	var inOrderTraverseNode = function(node, callback){
+		if(node !== null){
+			inOrderTraverseNode(node.left, callback);
+			callback(node.key);
+			inOrderTraverseNode(node.right, callback);
+		}
+	};
 
 	this.preorderTraverse = function(callback){};
 
