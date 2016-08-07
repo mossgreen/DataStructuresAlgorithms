@@ -92,17 +92,83 @@ function BinarySearchTree(){
 		}
 	};
 
-	this.min = function(){};
+	this.min = function(){
+		return minNode(root);
+	};
 
-	var minNode = function(node){};
+	var minNode = function(node){
+		if(node){
+			while(node && node.left !== null){
+				node = node.left;
+			}
+			return node.key;
+		}
+		return null;
+	};
 
-	this.max = function(){};
+	this.max = function(){
+		return maxNode(root);
+	};
 
-	var maxNode = function(node){};
+	var maxNode = function(node){
+		if(node){
+			while(node && node.right !== null){
+				node = node.right;
+			}
+			return node.key;
+		}
+		return null;
+	};
 
-	this.remove = function(element){};
+	this.remove = function(element){
+		root = removeNode(root, element);
+	};
 
-	var findMinNode = function(node){};
+	var findMinNode = function(node){
+		while(node && node.left !== null){
+			node = node.left;
+		}
+		return node;
+	};
 
-	var removeNode = function(node, element){};
+	var removeNode = function(node, element){
+		if(node === null){
+			return null;
+		}
+
+		if(element < node.key){
+			node.left = removeNode(node.left,element);
+			return node;
+		}else if(element > node.key){
+			node.right = removeNode(node.right, element);
+			return node;
+		}else{
+			//element is equal to node.item
+			//handle 3 special conditions
+			//1, a leaf node
+			//2, a node with only 1 child
+			//3, a node with 2 children
+
+			//case1
+			if(node.left === null && node.right === null){
+				node = null;
+				return node;
+			}
+
+			//case 2
+			if(node.left === null){
+				node = node.right;
+				return node;
+			}else if(node.right === null){
+				node = node.left;
+				return node;
+			}
+
+			//case 3
+			var aux = findMinNode(node.right);
+			node.key = aux.key;
+			node.right = removeNode(node.right, aux.key);
+			return node;
+		}
+	};
 }
