@@ -1,3 +1,6 @@
+import java.util.Arrays;
+import java.util.HashSet;
+
 class Solution {
 
     public static void main(String[] args) {
@@ -28,38 +31,45 @@ class Solution {
     // Q167
     public static int[] twoSum2(int[] numbers, int target) {
 
-        int min = numbers[0];
-        int max = numbers[numbers.length - 1];
+        int i = 0;
+        int j = numbers.length - 1;
 
-        if (min * max > 0) {
-            for (int i = 0; i < numbers.length && numbers[i] < target; i++) {
-                for (int j = i + 1; j < numbers.length; j++) {
-                    return new int[]{(i + 1), (j + 1)};
-                }
+        while (i < j) {
+            if (numbers[i] + numbers[j] > target) {
+                j--;
+            } else if (numbers[i] + numbers[j] < target) {
+                i++;
+            } else {
+                return new int[]{i+1, j+1};
             }
-        } else if (min * max < 0) {
-            for (int i = 0; i < numbers &&  ; i++) {
-
-            }
-        }
-
-
-        for (int i = 0; i < numbers.length ; i++) {
-            for (int j = i + 1; j < numbers.length; j++) {
-                if (numbers[i] * numbers[j] > 0) {
-                    if (numbers[i] <= target && numbers[i] + numbers[j] == target) {
-                        return new int[]{(i + 1), (j + 1)};
-                    }
-                } else if (numbers[i] * numbers[j] < 0) {
-                    if (numbers[i] <= target && numbers[i] + numbers[j] == target) {
-                        return new int[]{(i + 1), (j + 1)};
-                    }
-                }
-
-            }
-
-
         }
         throw new IllegalArgumentException("No two sum result");
     }
+
+    // Q633
+    public boolean judgeSquareSum(int c) {
+        int i = 0;
+        int j = (int)Math.sqrt(c);
+
+        while (i <= j) {
+            final int result = i * i + j * j;
+            if (result == c) {
+                return Boolean.TRUE;
+            } else if (result < c) {
+                i++;
+            } else {
+                j--;
+            }
+        }
+        return Boolean.FALSE;
+    }
+
+
+    // Q345. Reverse Vowels of a String
+
+    private static final HashSet<Character> vowels = new HashSet<>(Arrays.asList('a', 'e', 'i', 'o', 'u', 'A', 'E', 'I', 'O', 'U'));
+    public String reverseVowels(String s) {
+
+    }
+
 }
