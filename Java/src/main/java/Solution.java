@@ -1,6 +1,5 @@
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.List;
+import java.util.*;
+import java.util.stream.Collectors;
 
 class Solution {
 
@@ -23,7 +22,7 @@ class Solution {
     public static int[] twoSum(int[] nums, int target) {
 
         for (int i = 0; i < nums.length; i++) {
-            for (int j = i+1; j < nums.length ; j++) {
+            for (int j = i + 1; j < nums.length; j++) {
                 if (nums[i] + nums[j] == target) {
                     return new int[]{i, j};
                 }
@@ -44,7 +43,7 @@ class Solution {
             } else if (numbers[i] + numbers[j] < target) {
                 i++;
             } else {
-                return new int[]{i+1, j+1};
+                return new int[]{i + 1, j + 1};
             }
         }
         throw new IllegalArgumentException("No two sum result");
@@ -53,7 +52,7 @@ class Solution {
     // Q633
     public boolean judgeSquareSum(int c) {
         int i = 0;
-        int j = (int)Math.sqrt(c);
+        int j = (int) Math.sqrt(c);
 
         while (i <= j) {
             final int result = i * i + j * j;
@@ -72,6 +71,7 @@ class Solution {
     // Q345. Reverse Vowels of a String
 
     private static final HashSet<Character> vowels = new HashSet<>(Arrays.asList('a', 'e', 'i', 'o', 'u', 'A', 'E', 'I', 'O', 'U'));
+
     public static String reverseVowels(String s) {
         if (s == null) {
             return null;
@@ -176,10 +176,11 @@ class Solution {
             if (s.charAt(i) == target.charAt(j)) {
                 j++;
             }
-            i ++;
+            i++;
         }
         return j == target.length();
     }
+
     public String findLongestWord(String s, List<String> d) {
 
         String longestWord = "";
@@ -199,4 +200,103 @@ class Solution {
         }
         return longestWord;
     }
+
+    // Q215. Kth Largest Element in an Array
+    public int findKthLargest(int[] nums, int k) {
+        Arrays.sort(nums);
+        return nums[nums.length - k];
+    }
+
+    // Q347. Top K Frequent Elements
+    public int[] topKFrequent(int[] nums, int k) {
+
+        Map<Integer, Integer> frequencyForNumber = new HashMap<>();
+
+        for (int num : nums) {
+            frequencyForNumber.put(num, frequencyForNumber.getOrDefault(num, 0) + 1); // todo moss
+        }
+
+        List<Integer>[] buckets = new ArrayList[nums.length + 1]; // why +1? todo
+        for (Map.Entry<Integer, Integer> entry : frequencyForNumber.entrySet()) {
+            int index = entry.getKey();
+            int frequency = entry.getValue();
+            if (buckets[frequency] == null) {
+                buckets[frequency] = new ArrayList<>();
+            }
+            buckets[frequency].add(index);
+        }
+
+        List<Integer> topK = new ArrayList<>();
+        for (int i = buckets.length -1; i>= 0 && topK.size()< k; i--) {
+            if (buckets[i] != null) {
+                topK.addAll(buckets[i]);
+            }
+        }
+        return topK.stream().mapToInt(i->i).toArray();
+    }
+
+    // Q451. Sort Characters By Frequency (Medium)
+    public String frequencySort(String s) {
+
+        Map<Character, Integer> frequencyMap = new HashMap<>();
+        final char[] chars = s.toCharArray();
+        for (char c : chars) {
+            frequencyMap.put(c, frequencyMap.getOrDefault(c, 0) + 1);
+        }
+
+        List<Character>[] bucket = new ArrayList[s.length()+ 1];
+
+        for (Map.Entry<Character, Integer> entry : frequencyMap.entrySet()) {
+            Integer frequency = entry.getValue();
+            Character key = entry.getKey();
+
+            if (bucket[frequency] == null) {
+                bucket[frequency] = new ArrayList<>();
+            }
+            bucket[frequency].add(key);
+        }
+
+        StringBuilder sb = new StringBuilder();
+
+        for (int i = bucket.length - 1; i >= 0; i--) {
+
+            if (bucket[i] == null) {
+                continue;
+            }
+
+            for (char c : bucket[i]) {
+                for (int j = 0; j < i; j++) {
+                    sb.append(c);
+                }
+            }
+
+        }
+        return sb.toString();
+    }
+
+    // Q75. Sort Colors
+    private static void swap(int[] nums, int i, int j) {
+        int tmp = nums[i];
+        nums[i] = nums[j];
+        nums[i] = tmp;
+    }
+    public void sortColors(int[] nums) {
+
+        //[2,0,2,1,1,0]
+        int zero = -1;
+        int one = 0;
+        int two = nums.length;
+
+        while (one < two) {
+            if (nums[one] == 0) {
+                swap(nums, ++zero, one++);
+            } else if (nums[one] == 2) {
+                swap(nums, one, --two);
+            } else {
+                // number  = 1
+                one++;
+            }
+        }
+    }
+
 }
