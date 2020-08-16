@@ -1,5 +1,4 @@
 import java.util.*;
-import java.util.stream.Collectors;
 
 class Solution {
 
@@ -15,6 +14,8 @@ class Solution {
 
         String ss = "hello";
         reverseVowels(ss);
+        int[][] people = new int[][]{{7, 0}, {4, 4}, {7, 1}, {5, 0}, {6, 1}, {5, 2}};
+        reconstructQueue(people);
 
     }
 
@@ -227,12 +228,12 @@ class Solution {
         }
 
         List<Integer> topK = new ArrayList<>();
-        for (int i = buckets.length -1; i>= 0 && topK.size()< k; i--) {
+        for (int i = buckets.length - 1; i >= 0 && topK.size() < k; i--) {
             if (buckets[i] != null) {
                 topK.addAll(buckets[i]);
             }
         }
-        return topK.stream().mapToInt(i->i).toArray();
+        return topK.stream().mapToInt(i -> i).toArray();
     }
 
     // Q451. Sort Characters By Frequency (Medium)
@@ -244,7 +245,7 @@ class Solution {
             frequencyMap.put(c, frequencyMap.getOrDefault(c, 0) + 1);
         }
 
-        List<Character>[] bucket = new ArrayList[s.length()+ 1];
+        List<Character>[] bucket = new ArrayList[s.length() + 1];
 
         for (Map.Entry<Character, Integer> entry : frequencyMap.entrySet()) {
             Integer frequency = entry.getValue();
@@ -280,6 +281,7 @@ class Solution {
         nums[i] = nums[j];
         nums[i] = tmp;
     }
+
     public void sortColors(int[] nums) {
 
         //[2,0,2,1,1,0]
@@ -298,5 +300,288 @@ class Solution {
             }
         }
     }
+
+    // Q455. Assign Cookies
+    public int findContentChildren(int[] g, int[] s) {
+        Arrays.sort(g);
+        Arrays.sort(s);
+        int gi = 0;
+        int si = 0;
+        while (gi < g.length && si < s.length) {
+            if (g[gi] <= s[si]) {
+                gi++;
+            }
+            si++;
+        }
+        return gi;
+
+    }
+
+    // Q435. Non-overlapping Intervals (Medium)
+    public int eraseOverlapIntervals(int[][] intervals) {
+
+        if (intervals.length == 0) {
+            return 0;
+        }
+
+        Arrays.sort(intervals, Comparator.comparing(o -> o[1]));
+
+        int count = 1;
+        int end = intervals[0][1];
+        for (int i = 1; i < intervals.length; i++) {
+            if (intervals[i][0] < end) {
+                continue;
+            }
+            end = intervals[i][1];
+            count++;
+        }
+        return intervals.length - count;
+    }
+
+    // Q452. Minimum Number of Arrows to Burst Balloons
+    public int findMinArrowShots(int[][] points) {
+
+        if (points.length == 0) {
+            return 0;
+        }
+
+        Arrays.sort(points, Comparator.comparing(o -> o[1]));
+
+        int count = 1;
+        int end = points[0][1];
+        for (int i = 1; i < points.length; i++) {
+            if (points[i][0] <= end) {
+                continue;
+            }
+            end = points[i][1];
+            count++;
+        }
+        return count;
+    }
+
+    // Q406. Queue Reconstruction by Height(Medium)
+    public static int[][] reconstructQueue(int[][] people) {
+
+        if (people == null || people.length == 0) return people;
+
+        Arrays.sort(people, (p1, p2) -> (p1[0] == p2[0] ? p1[1] - p2[1] : p2[0] - p1[0]));
+
+        List<int[]> result = new ArrayList<>();
+
+        for (int[] p : people) {
+            result.add(p[0], p);
+        }
+
+        return result.toArray(new int[people.length][]);
+    }
+
+    // Q121. Best Time to Buy and Sell Stock
+    public int maxProfit(int[] prices) {
+        if (prices == null || prices.length == 0) {
+            return 0;
+        }
+        int currentMin = prices[0];
+        int maxProfix = 0;
+
+        for (int i = 0; i < prices.length; i++) {
+            if (prices[i] < currentMin) {
+                currentMin = prices[i];
+            } else {
+                maxProfix = Math.max(maxProfix, prices[i] - currentMin);
+            }
+        }
+
+        return maxProfix;
+    }
+
+    // Q122. Best Time to Buy and Sell Stock II
+    public int maxProfit2(int[] prices) {
+
+        if (prices == null || prices.length < 2) {
+            return 0;
+        }
+
+        int profit = 0;
+        for (int i = 1; i < prices.length; i++) {
+            if (prices[i] > prices[i - 1]) {
+                profit += prices[i] - prices[i - 1];
+            }
+        }
+        return profit;
+    }
+
+    // Q605. Can Place Flowers
+    public boolean canPlaceFlowers(int[] flowerbed, int n) {
+
+        int count = 0;
+        for (int i = 0; i < flowerbed.length && count < n; i++) {
+
+            if (flowerbed[i] == 1) {
+                continue;
+            }
+
+            int pre = i == 0 ? 0 : flowerbed[i - 1];
+            int next = flowerbed.length - 1 == i ? 0 : flowerbed[i + 1];
+
+            if (pre == 0 && next == 0) {
+                count++;
+                flowerbed[i] = 1;
+            }
+        }
+        return count == n;
+    }
+
+    // Q392. Is Subsequence
+    public boolean isSubsequence(String s, String t) {
+
+        int index = -1;
+        for (char c : s.toCharArray()) {
+            index = t.indexOf(c, index + 1);
+
+            if (index == -1) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    // Q53. Maximum Subarray
+    public int maxSubArray(int[] nums) {
+
+        if (nums == null || nums.length == 0) {
+            return 0;
+        }
+
+        int preSum = nums[0];
+        int maxSum = preSum;
+
+        for (int i = 1; i < nums.length; i++) {
+            preSum = preSum > 0 ? preSum + nums[i] : nums[i];
+            maxSum = Math.max(maxSum, preSum);
+        }
+        return maxSum;
+    }
+
+    // Q69. Sqrt(x)
+    public int mySqrt(int x) {
+
+        if (x <= 1) {
+            return x;
+        }
+
+        int lo = 0;
+        int hi = x;
+
+        while (lo <= hi) {
+            int m = lo + (hi - lo) / 2;
+            if (m * m == x) {
+                return m;
+            } else if (m > x / m) {
+                hi = m - 1;
+            } else {
+                lo = m + 1;
+            }
+        }
+
+        return hi - 1;
+    }
+
+    // Q744. Find Smallest Letter Greater Than Target
+    public char nextGreatestLetter(char[] letters, char target) {
+        int n = letters.length;
+        int lo = 0;
+        int hi = n - 1;
+        while (lo <= hi) {
+            int m = lo + (hi - lo) / 2;
+            if (letters[m] <= target) {
+                lo = m + 1;
+            } else {
+                hi = m - 1;
+            }
+        }
+
+        return lo < n ? letters[lo] : letters[0];
+    }
+
+    // Q540. Single Element in a Sorted Array
+    public int singleNonDuplicate(int[] nums) {
+        int lo = 0;
+        int hi = nums.length - 1;
+        while (lo < hi) {
+            int m = lo + (hi - lo) / 2;
+            if (m % 2 == 1) {
+                m--;
+            }
+
+            if (nums[m] == nums[m + 1]) {
+                lo = m + 2;
+            } else {
+                hi = m;
+            }
+        }
+        return nums[lo];
+    }
+
+    // Q278. First Bad Version
+
+    //bool isBadVersion(version) = garget
+    public int firstBadVersion(int n) {
+
+        int lo = 0;
+        int hi = n;
+
+        while (lo < hi) {
+            int m = lo + (hi - lo) / 2;
+            if (isBadVersion(m)) {
+                hi = m;
+            } else {
+                lo = m + 1;
+            }
+        }
+        return hi;
+    }
+
+    // Q153. Find Minimum in Rotated Sorted Array
+    public int findMin(int[] nums) {
+        int lo = 0;
+        int hi = nums.length - 1;
+        while (lo < hi) {
+            int m = lo + (hi - lo) / 2;
+            if (nums[hi] >= nums[m]) {
+                hi = m;
+            } else {
+                lo = m + 1;
+            }
+        }
+
+        return nums[lo];
+    }
+
+    // Q34. Find First and Last Position of Element in Sorted Array
+    private static int findFirst(int[] nums, int target) {
+        int lo = 0;
+        int hi = nums.length;
+
+        while (lo < hi) {
+            int m = lo + (hi - lo) / 2;
+            if (nums[m] >= target) {
+                hi = m;
+            } else {
+                lo = m +1;
+            }
+        }
+        return lo;
+    }
+    public int[] searchRange(int[] nums, int target) {
+        int firstIndex = findFirst(nums, target);
+        int secondIndex = findFirst(nums, target + 1) - 1;
+
+        if (firstIndex ==nums.length || nums[firstIndex] != target) {
+            return new int[]{-1, -1};
+        } else {
+            return new int[]{firstIndex, secondIndex};
+        }
+    }
+
 
 }
