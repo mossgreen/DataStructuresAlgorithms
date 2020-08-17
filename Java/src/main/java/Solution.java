@@ -525,21 +525,21 @@ class Solution {
     // Q278. First Bad Version
 
     //bool isBadVersion(version) = garget
-    public int firstBadVersion(int n) {
-
-        int lo = 0;
-        int hi = n;
-
-        while (lo < hi) {
-            int m = lo + (hi - lo) / 2;
-            if (isBadVersion(m)) {
-                hi = m;
-            } else {
-                lo = m + 1;
-            }
-        }
-        return hi;
-    }
+//    public int firstBadVersion(int n) {
+//
+//        int lo = 0;
+//        int hi = n;
+//
+//        while (lo < hi) {
+//            int m = lo + (hi - lo) / 2;
+//            if (isBadVersion(m)) {
+//                hi = m;
+//            } else {
+//                lo = m + 1;
+//            }
+//        }
+//        return hi;
+//    }
 
     // Q153. Find Minimum in Rotated Sorted Array
     public int findMin(int[] nums) {
@@ -581,6 +581,105 @@ class Solution {
         } else {
             return new int[]{firstIndex, secondIndex};
         }
+    }
+
+    // Q840. Magic Squares In Grid
+    private static boolean isMagicSquare(int[][] grid, int row, int col) {
+
+        int[] result = new int[10];
+
+        for (int i = 0; i < 3; i++) {
+            for (int j = 0; j < 3; j++) {
+
+                if (grid[row + i][col + j] < 1 || grid[row + i][col + j] > 9 || result[grid[row + i][col + j]] > 0) {
+                    return false;
+                }
+
+                result[grid[row + i][col + j]] = 1;
+
+            }
+        }
+        int sumDiagonal1 = grid[row][col] + grid[row + 1][col + 1] + grid[row + 2][col + 2];
+        int sumDiagonal2 = grid[row + 2][col] + grid[row + 1][col + 1] + grid[row][col + 2];
+        if (sumDiagonal1 != sumDiagonal2) {
+            return false;
+        }
+
+        for (int i = 0; i < 3; i++) {
+            int sumRow = grid[row + i][col] + grid[row + i][col + 1] + grid[row + i][col + 2];
+            if (sumRow != sumDiagonal1) {
+                return false;
+            }
+            int sumCol = grid[row][col + i] + grid[row + 1][col + i] + grid[row + 2][col + i];
+            if (sumCol != sumDiagonal1) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    // Q836. Rectangle Overlap
+    public boolean isRectangleOverlap(int[] rec1, int[] rec2) {
+
+        int maxLeft = Math.max(rec1[0], rec2[0]);
+        int minRight = Math.min(rec1[2], rec2[2]);
+        int maxBottom = Math.max(rec1[1], rec2[1]);
+        int minTop = Math.min(rec1[3], rec2[3]);
+
+        return (maxLeft < minRight) && (maxBottom < minTop);
+    }
+
+    // Q986. Interval List Intersections
+    public int[][] intervalIntersection(int[][] A, int[][] B) {
+
+        if (A == null || B == null || A.length == 0 || B.length == 0) {
+            return new int[0][0];
+        }
+
+        int la = A.length;
+        int lb = B.length;
+        List<int[]> result = new ArrayList<>();
+
+        int i = 0; // index for A
+        int j = 0; // index for B
+
+        while (i < la && j < lb) {
+            int maxStart = Math.max(A[i][0], B[j][0]);
+            int minEnd = Math.min(A[i][1], B[j][1]);
+
+            if (minEnd >= maxStart) {
+                result.add(new int[]{maxStart, minEnd});
+            }
+
+            if (A[i][1] == minEnd) {
+                i++;
+            }
+
+            if (B[j][1] == minEnd) {
+                j++;
+            }
+        }
+
+        return result.toArray(new int[0][0]);
+    }
+
+    // Q204. Count Primes
+    public int countPrimes(int n) {
+        boolean[] notPrime = new boolean[n + 1];
+
+        int count = 0;
+
+        for (int i = 2; i < n; i++) {
+
+            if (notPrime[i] == false) {
+                count++;
+                for (int j = 2; j * i < n; j++) {
+                    notPrime[i * j] = true;
+                }
+            }
+        }
+        return count;
     }
 
 
